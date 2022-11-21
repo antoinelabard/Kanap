@@ -49,6 +49,20 @@ async function order(contact, products) {
     });
 }
 
+/**
+ * The returned object has the following form:
+ * 
+ * [
+ *      {"id": string, "color": string, "quantity": number},
+ *      ...
+ * ]
+ * 
+ * @returns a JSON object of all the products in the cart
+ */
 function getCart() {
-    return JSON.parse(localStorage.getItem("cart"))
+    let cart = JSON.parse(localStorage.getItem("cart"))
+    if (!cart) {
+        cart = []
+    }
+    return cart
 }
