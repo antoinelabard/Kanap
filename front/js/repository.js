@@ -66,3 +66,24 @@ function getCart() {
     }
     return cart
 }
+
+function addToCart(id, color, quantity) {
+    let cart = getCart()
+    let productAdded = false
+    for (let i = 0; i < cart.length; ++i) {
+        if (cart[i].id === id && cart[i].color === color) {
+            cart[i].quantity = quantity
+            productAdded = true
+            break
+        }
+    }
+    if (!productAdded) {
+        cart.push({
+            "id": id,
+            "color": color,
+            "quantity": quantity
+
+        })
+    }
+    localStorage.setItem("cart", JSON.stringify(cart))
+}
