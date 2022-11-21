@@ -87,3 +87,20 @@ function addToCart(id, color, quantity) {
     }
     localStorage.setItem("cart", JSON.stringify(cart))
 }
+
+function removeFromCart(id, color) {
+    let cart = getCart()
+    for (let i = 0; i < cart.length; ++i) {
+        if (cart[i].id === id && cart[i].color === color) {
+            cart.splice(i, 1)
+            break
+        }
+    }
+    localStorage.setItem("cart", JSON.stringify(cart))
+}
+
+console.log(localStorage)
+addToCart("abc", "purple", 10)
+console.log(localStorage)
+removeFromCart("abc", "purple")
+console.log(localStorage)
