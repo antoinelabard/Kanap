@@ -48,3 +48,7 @@ async function order(contact, products) {
         body: JSON.stringify(body)
     });
 }
+
+function getCart() {
+    return JSON.parse(localStorage.getItem("cart"))
+}
