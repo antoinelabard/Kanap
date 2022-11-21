@@ -67,6 +67,14 @@ function getCart() {
     return cart
 }
 
+/**
+ * addToCart: add a product to the user's cart, stored locally in the localStorage.
+ * if an entry matching the id and color of the product is already stored, the new quantity will overwrite the old one.
+ * 
+ * @param {string} id 
+ * @param {string} color 
+ * @param {number} quantity 
+ */
 function addToCart(id, color, quantity) {
     let cart = getCart()
     let productAdded = false
@@ -88,6 +96,11 @@ function addToCart(id, color, quantity) {
     localStorage.setItem("cart", JSON.stringify(cart))
 }
 
+/**
+ * removeFromCart: remove from the cart stored in the localStorage the entry marching the id and the color.
+ * @param {string} id 
+ * @param {string} color 
+ */
 function removeFromCart(id, color) {
     let cart = getCart()
     for (let i = 0; i < cart.length; ++i) {
@@ -98,9 +111,3 @@ function removeFromCart(id, color) {
     }
     localStorage.setItem("cart", JSON.stringify(cart))
 }
-
-console.log(localStorage)
-addToCart("abc", "purple", 10)
-console.log(localStorage)
-removeFromCart("abc", "purple")
-console.log(localStorage)
