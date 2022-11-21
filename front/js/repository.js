@@ -1,3 +1,5 @@
+import Contact from "./Contact.js"
+
 async function getAllProducts() {
     fetch("http://localhost:3000/api/products")
         .then(function (res) {
@@ -29,4 +31,20 @@ async function getProductById(id) {
             console.log(err)
             return {}
         });
+}
+
+async function order(contact, products) {
+    let body = {
+        contact,
+        products
+    }
+
+    fetch("http://localhost:3000/api/products/order", {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    });
 }
