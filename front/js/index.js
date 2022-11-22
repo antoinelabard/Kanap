@@ -1,4 +1,4 @@
-import Repository from "./repository.js"
+import Repository from "./Repository.js"
 
 const repository = new Repository()
 let items = document.getElementById('items')
