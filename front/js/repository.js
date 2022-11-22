@@ -1,8 +1,8 @@
 import Contact from "./Contact.js"
 
 export default class Repository {
-    getAllProducts() {
-        fetch("http://localhost:3000/api/products")
+    async getAllProducts() {
+        return await fetch("http://localhost:3000/api/products")
             .then(function (res) {
                 if (res.ok) {
                     return res.json()
@@ -10,11 +10,13 @@ export default class Repository {
             })
             .then(function (value) {
                 console.log(value)
+                // return new Promise(() => value)
+                return value
             })
             .catch(function (err) {
                 console.log(err)
                 return {}
-            });
+            })
     }
 
     getProductById(id) {
