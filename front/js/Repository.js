@@ -10,7 +10,6 @@ export default class Repository {
             })
             .then(function (value) {
                 console.log(value)
-                // return new Promise(() => value)
                 return value
             })
             .catch(function (err) {
@@ -19,9 +18,9 @@ export default class Repository {
             })
     }
 
-    getProductById(id) {
+    async getProductById(id) {
         let url = `http://localhost:3000/api/products/${id}`
-        fetch(url)
+        return await fetch(url)
             .then(function (res) {
                 if (res.ok) {
                     return res.json()
@@ -29,6 +28,7 @@ export default class Repository {
             })
             .then(function (value) {
                 console.log(value)
+                return value
             })
             .catch(function (err) {
                 console.log(err)
