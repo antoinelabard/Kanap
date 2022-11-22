@@ -79,7 +79,7 @@ export default class Repository {
      * @param {number} quantity 
      */
     addToCart(id, color, quantity) {
-        let cart = getCart()
+        let cart = this.getCart()
         let productAdded = false
         for (let i = 0; i < cart.length; ++i) {
             if (cart[i].id === id && cart[i].color === color) {
@@ -105,7 +105,7 @@ export default class Repository {
      * @param {string} color 
      */
     removeFromCart(id, color) {
-        let cart = getCart()
+        let cart = this.getCart()
         for (let i = 0; i < cart.length; ++i) {
             if (cart[i].id === id && cart[i].color === color) {
                 cart.splice(i, 1)
