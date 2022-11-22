@@ -6,6 +6,7 @@ let imageHTML = document.getElementsByClassName("item__img")[0]
 let titleHTML = document.getElementById("title")
 let descriptionHTML = document.getElementById("description")
 let colorsHTML = document.getElementById("colors")
+let pageTitleHTML = document.getElementsByTagName("title")[0]
 
 repository
     .getProductById(new URL(window.location.href).searchParams.get("id"))
@@ -13,6 +14,7 @@ repository
         imageHTML.innerHTML = `<img src="${product.imageUrl}" alt="${product.altTxt}">`
         titleHTML.textContent = product.name
         descriptionHTML.textContent = product.description
+        pageTitleHTML.textContent = product.name
 
         let colorOptions = ""
         for (let i in product.colors) {
