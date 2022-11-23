@@ -80,8 +80,6 @@ export default class Repository {
 
     /**
      * addToCart: add a product to the user's cart, stored locally in the localStorage.
-     * if an entry matching the id and color of the product is already stored,
-     * the new quantity will add up to the old one, in the limit of 100 units.
      * 
      * @param {string} id 
      * @param {string} color 
@@ -92,10 +90,7 @@ export default class Repository {
         let productAdded = false
         for (let i = 0; i < cart.length; ++i) {
             if (cart[i].id === id && cart[i].color === color) {
-                cart[i].quantity = Math.min(
-                    Number(cart[i].quantity) + Number(quantity),
-                    MAX_ORDER_QUANTITY
-                )
+                cart[i].quantity = quantity
                 productAdded = true
                 break
             }
