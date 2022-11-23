@@ -51,21 +51,6 @@ function addItemCardToDom(cartItem) {
   itemsSectionHTML.appendChild(itemHTML)
 }
 
-function setUpListeners() {
-  for (let i in itemsSectionHTML.children) {
-    itemHTML = itemsSectionHTML.children[i]
-    console.log(itemHTML.getAttribute)
-    itemsSectionHTML.lastChild.addEventListener("click", () => {
-      repository.removeFromCart(item.id, item.color)
-      itemsSectionHTML.removeChild(itemsSectionHTML.lastChild)
-    })
-    itemsSectionHTML.lastChild.addEventListener("change", (value) => {
-      console.log("quantity changed")
-      repository.addToCart(item.id, item.color, event.target.value)
-    })
-  }
-}
-
 function updateTotals() {
   totalQuantity = cartItems.reduce((acc, item) => {
     return acc + item.quantity
