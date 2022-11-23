@@ -45,8 +45,13 @@ function addItemCardToDom(cartItem) {
     })
   itemHTML.getElementsByClassName("itemQuantity")[0]
     .addEventListener("change", (value) => {
-      console.log(event.target.value)
-      repository.addToCart(cartItem.id, cartItem.color, event.target.value)
+      let newQuantity = Number(event.target.value)
+      if (newQuantity > repository.getMaxOrderQuantity()) {
+        alert(`Vous ne pouvez pas commander plus de ${repository.getMaxOrderQuantity()} unités du même article.`)
+        event.target.value = repository.getMaxOrderQuantity()
+      } else {
+        repository.addToCart(cartItem.id, cartItem.color, newQuantity)
+      }
     })
   itemsSectionHTML.appendChild(itemHTML)
 }
