@@ -42,3 +42,6 @@ for (let i in cartItems) {
       totalPrice += product.price * cartItem.quantity
     })
 }
+
+totalQuantityHTML.textContent = totalQuantity
+totalPriceHTML.textContent = totalPrice

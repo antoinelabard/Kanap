@@ -68,7 +68,10 @@ export default class Repository {
         if (!cart) {
             cart = []
         }
-        return cart
+        return cart.map((item) => {
+            item.quantity = Number(item.quantity)
+            return item
+        })
     }
 
     /**
