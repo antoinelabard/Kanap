@@ -1,16 +1,22 @@
 import Repository from "./Repository.js"
 
 const repository = new Repository()
+
 let itemsSectionHTML = document.getElementById('cart__items')
+let totalQuantityHTML = document.getElementById("totalQuantity")
+let totalPriceHTML = document.getElementById("totalPrice")
 
 let cartItems = repository.getCart()
 
+let totalQuantity = 0
+let totalPrice = 0
+
 for (let i in cartItems) {
-    let cartItem = cartItems[i]
-    await repository
-        .getProductById(cartItem.id)
-        .then((product) => {
-            itemsSectionHTML.innerHTML += `
+  let cartItem = cartItems[i]
+  await repository
+    .getProductById(cartItem.id)
+    .then((product) => {
+      itemsSectionHTML.innerHTML += `
             <article class="cart__item" data-id="${product._id}" data-color="${cartItem.color}">
                 <div class="cart__item__img">
                   <img src="${product.imageUrl}" alt="${product.altTxt}">
@@ -32,6 +38,7 @@ for (let i in cartItems) {
                   </div>
                 </div>
               </article>`
-
-        })
+      totalQuantity += cartItem.quantity
+      totalPrice += product.price * cartItem.quantity
+    })
 }
