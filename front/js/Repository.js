@@ -1,7 +1,11 @@
 import Contact from "./Contact.js"
 
-const MAX_ORDER_QUANTITY = 100
 export default class Repository {
+
+    getMaxOrderQuantity() {
+        return 100
+    }
+
     async getAllProducts() {
         return await fetch("http://localhost:3000/api/products")
             .then(function (res) {
