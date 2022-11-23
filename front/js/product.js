@@ -30,8 +30,9 @@ repository
                 return
             }
             let quantity = Number(document.getElementById("quantity").value)
-            if (quantity < 1 || quantity > 100) {
-                alert("Le nombre d'articles doit être compris entre 1 et 100.")
+            if (quantity < repository.getMinOrderQuantity() ||
+                quantity > repository.getMaxOrderQuantity()) {
+                alert(`Le nombre d'articles doit être compris entre ${repository.getMinOrderQuantity()} et ${repository.getMaxOrderQuantity()}.`)
                 return
             }
             repository.addToCart(product._id, color, quantity)
