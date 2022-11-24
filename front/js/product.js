@@ -29,12 +29,24 @@ repository
                 alert("Veuillez choisir la couleur de votre article.")
                 return
             }
+
             let quantity = Number(document.getElementById("quantity").value)
+            let oldCartItem = repository.getCart().filter((item) => {
+                console.log(item.id === product._id && item.color === color)
+                return item.id === product._id && item.color === color
+            })
+            console.log(oldCartItem.length != 0)
+            if (oldCartItem.length != 0) {
+                quantity += Number(oldCartItem[0].quantity)
+                console.log(Number(oldCartItem[0].quantity))
+                console.log(quantity)
+            }
             if (quantity < repository.getMinOrderQuantity() ||
                 quantity > repository.getMaxOrderQuantity()) {
                 alert(`Le nombre d'articles doit être compris entre ${repository.getMinOrderQuantity()} et ${repository.getMaxOrderQuantity()}.`)
                 return
             }
+
             repository.addToCart(product._id, color, quantity)
             alert("Le produit a été ajouté au panier !")
         })
