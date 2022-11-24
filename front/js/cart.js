@@ -147,7 +147,7 @@ async function order() {
       return item.id
     })
   )
-  window.open("../html/confirmation.html")
+  window.location.href = `../html/confirmation.html?orderId=${orderId}`
 }
 
 await loadProductsData()
