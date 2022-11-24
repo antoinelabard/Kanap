@@ -5,7 +5,6 @@ let items = document.getElementById('items')
 let productsHTML = "" // The string containing all the HTML element describing the products.
 
 repository.getAllProducts().then(function (products) {
-    console.log(products)
     for (let i in products) {
         let product = products[i]
         console.log(product)

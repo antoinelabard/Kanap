@@ -32,14 +32,10 @@ repository
 
             let quantity = Number(document.getElementById("quantity").value)
             let oldCartItem = repository.getCart().filter((item) => {
-                console.log(item.id === product._id && item.color === color)
                 return item.id === product._id && item.color === color
             })
-            console.log(oldCartItem.length != 0)
             if (oldCartItem.length != 0) {
                 quantity += Number(oldCartItem[0].quantity)
-                console.log(Number(oldCartItem[0].quantity))
-                console.log(quantity)
             }
             if (quantity < repository.getMinOrderQuantity() ||
                 quantity > repository.getMaxOrderQuantity()) {

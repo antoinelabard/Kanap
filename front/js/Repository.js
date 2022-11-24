@@ -18,7 +18,6 @@ export default class Repository {
                 }
             })
             .then(function (value) {
-                console.log(value)
                 return value
             })
             .catch(function (err) {
@@ -36,7 +35,6 @@ export default class Repository {
                 }
             })
             .then(function (value) {
-                console.log(value)
                 return value
             })
             .catch(function (err) {

@@ -15,7 +15,6 @@ let totalPrice = 0
 
 function addItemCardToDom(cartItem) {
   let product = products[cartItem.id]
-  console.log(products)
   let itemHTML = document.createElement("item")
   itemHTML.innerHTML = `
     <article class="cart__item" data-id="${product._id}" data-color="${cartItem.color}">
@@ -41,7 +40,6 @@ function addItemCardToDom(cartItem) {
       </article>`
   itemHTML.getElementsByClassName("deleteItem")[0]
     .addEventListener("click", () => {
-      console.log(cartItem.color)
       repository.removeFromCart(cartItem.id, cartItem.color)
       itemsSectionHTML.removeChild(itemHTML)
       updateTotals()
@@ -101,16 +99,6 @@ async function order() {
   let nameRegex = new RegExp(/^[a-zA-Z\D ]{1,20}$/i)
   let addressRegex = new RegExp(/^[a-zA-Z ]{1,50}$/i)
   let emailRegex = new RegExp(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/i)
-  console.log(nameRegex.test("antoine"), "true")
-  console.log(nameRegex.test("Antoine"), "true")
-  console.log(nameRegex.test("ant1oine"), "false")
-  console.log(nameRegex.test(""), "false")
-  console.log(addressRegex.test("Rte de la Corniche"), "true")
-  console.log(addressRegex.test(""), "false")
-  console.log(emailRegex.test("antoine@example.com"), "true")
-  console.log(emailRegex.test("antoine.l@example.com"), "true")
-  console.log(emailRegex.test("antoine"), "false")
-  console.log(emailRegex.test(""), "false")
 
   if (!nameRegex.test(firstName)) {
     firstNameErrorMsg.textContent
