@@ -42,23 +42,35 @@ export default class Repository {
             .catch(function (err) {
                 console.log(err)
                 return {}
-            });
+            })
     }
 
-    order(contact, products) {
+    async order(contact, products) {
         let body = {
             contact,
             products
         }
 
-        fetch("http://localhost:3000/api/products/order", {
+        return await fetch("http://localhost:3000/api/products/order", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(body)
-        });
+        })
+        .then(function (res) {
+            if (res.ok) {
+                return res.json()
+            }
+        })
+        .then(function (value) {
+            return value.orderId
+        })
+        .catch(function (err) {
+            console.log(err)
+            return {}
+        })
     }
 
     /**
