@@ -14,6 +14,7 @@ let totalPrice = 0
 
 function addItemCardToDom(cartItem) {
   let product = products[cartItem.id]
+  console.log(products)
   let itemHTML = document.createElement("item")
   itemHTML.innerHTML = `
     <article class="cart__item" data-id="${product._id}" data-color="${cartItem.color}">
@@ -42,28 +43,31 @@ function addItemCardToDom(cartItem) {
       console.log(cartItem.color)
       repository.removeFromCart(cartItem.id, cartItem.color)
       itemsSectionHTML.removeChild(itemHTML)
+      updateTotals()
     })
   itemHTML.getElementsByClassName("itemQuantity")[0]
     .addEventListener("change", (value) => {
       let newQuantity = Number(event.target.value)
-      if (quantity < repository.getMinOrderQuantity() ||
-        quantity > repository.getMaxOrderQuantity()) {
+      if (newQuantity < repository.getMinOrderQuantity() ||
+      newQuantity > repository.getMaxOrderQuantity()) {
         alert(`Le nombre d'articles doit être compris entre ${repository.getMinOrderQuantity()} et ${repository.getMaxOrderQuantity()}.`)
         event.target.value = repository.getMaxOrderQuantity()
       } else {
         repository.addToCart(cartItem.id, cartItem.color, newQuantity)
       }
+      updateTotals()
     })
   itemsSectionHTML.appendChild(itemHTML)
 }
 
 function updateTotals() {
+  cartItems = repository.getCart()
   totalQuantity = cartItems.reduce((acc, item) => {
     return acc + item.quantity
-  })
+  }, 0)
   totalPrice = cartItems.reduce((acc, item) => {
-    return acc + item.quantity * item.price
-  })
+    return acc + item.quantity * products[item.id].price
+  }, 0)
   totalQuantityHTML.textContent = totalQuantity
   totalPriceHTML.textContent = totalPrice
 }
@@ -81,4 +85,5 @@ async function loadProductsData() {
   }
 }
 
-loadProductsData()
+await loadProductsData()
+updateTotals()
