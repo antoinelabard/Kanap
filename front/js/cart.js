@@ -1,3 +1,4 @@
+import Contact from "./Contact.js"
 import Repository from "./Repository.js"
 
 const repository = new Repository()
@@ -49,7 +50,7 @@ function addItemCardToDom(cartItem) {
     .addEventListener("change", (value) => {
       let newQuantity = Number(event.target.value)
       if (newQuantity < repository.getMinOrderQuantity() ||
-      newQuantity > repository.getMaxOrderQuantity()) {
+        newQuantity > repository.getMaxOrderQuantity()) {
         alert(`Le nombre d'articles doit être compris entre ${repository.getMinOrderQuantity()} et ${repository.getMaxOrderQuantity()}.`)
         event.target.value = repository.getMaxOrderQuantity()
       } else {
@@ -85,5 +86,73 @@ async function loadProductsData() {
   }
 }
 
+async function order() {
+  let firstName = document.getElementById("firstName").value
+  let firstNameErrorMsg = document.getElementById("firstNameErrorMsg")
+  let lastName = document.getElementById("lastName").value
+  let lastNameErrorMsg = document.getElementById("lastNameErrorMsg")
+  let address = document.getElementById("address").value
+  let addressErrorMsg = document.getElementById("addressErrorMsg")
+  let city = document.getElementById("city").value
+  let cityErrorMsg = document.getElementById("cityErrorMsg")
+  let email = document.getElementById("email").value
+  let emailErrorMsg = document.getElementById("emailErrorMsg")
+
+  let nameRegex = new RegExp(/^[a-zA-Z\D ]{1,20}$/i)
+  let addressRegex = new RegExp(/^[a-zA-Z ]{1,50}$/i)
+  let emailRegex = new RegExp(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/i)
+  console.log(nameRegex.test("antoine"), "true")
+  console.log(nameRegex.test("Antoine"), "true")
+  console.log(nameRegex.test("ant1oine"), "false")
+  console.log(nameRegex.test(""), "false")
+  console.log(addressRegex.test("Rte de la Corniche"), "true")
+  console.log(addressRegex.test(""), "false")
+  console.log(emailRegex.test("antoine@example.com"), "true")
+  console.log(emailRegex.test("antoine.l@example.com"), "true")
+  console.log(emailRegex.test("antoine"), "false")
+  console.log(emailRegex.test(""), "false")
+
+  if (!nameRegex.test(firstName)) {
+    firstNameErrorMsg.textContent
+      = "Ce champ ne doit contenir qu'entre 1 et 20 lettres."
+    return
+  }
+  if (!nameRegex.test(lastName)) {
+    lastNameErrorMsg.textContent
+      = "Ce champ ne doit contenir qu'entre 1 et 20 lettres."
+    return
+  }
+  if (!addressRegex.test(address)) {
+    addressErrorMsg.textContent = "Ce champ ne doit contenir qu'entre 1 et 50 lettres ou chiffres."
+    return
+  }
+  if (!addressRegex.test(city)) {
+    cityErrorMsg.textContent = "Ce champ ne doit contenir qu'entre 1 et 50 lettres ou chiffres."
+    return
+  }
+  if (!emailRegex.test(email)) {
+    emailErrorMsg.textContent = "Ce champ ne doit être une adresse email valide (ex : nom@exemple.com)."
+    return
+  }
+
+  let orderId = await repository.order(
+    new Contact(
+      firstName,
+      lastName,
+      address,
+      city,
+      email
+    ),
+    cartItems.map((item) => {
+      return item.id
+    })
+  )
+  window.open("../html/confirmation.html")
+}
+
 await loadProductsData()
 updateTotals()
+
+document.getElementById("order").addEventListener("click", (event) => {
+  order()
+})
