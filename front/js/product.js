@@ -11,11 +11,13 @@ let pageTitleHTML = document.getElementsByTagName("title")[0]
 repository
     .getProductById(new URL(window.location.href).searchParams.get("id"))
     .then((product) => {
+        // add the cover image
         imageHTML.innerHTML = `<img src="${product.imageUrl}" alt="${product.altTxt}">`
         titleHTML.textContent = product.name
         descriptionHTML.textContent = product.description
         pageTitleHTML.textContent = product.name
 
+        // add the color options
         let colorOptions = ""
         for (let i in product.colors) {
             colorOptions += `
@@ -23,6 +25,7 @@ repository
         }
         colorsHTML.innerHTML += colorOptions
 
+        // add the event listener to add the product to the cart
         document.getElementById("addToCart").addEventListener("click", (event) => {
             let color = document.getElementById("colors").value
             if (!color) {

@@ -1,5 +1,9 @@
 import Contact from "./Contact.js"
 
+/**
+ * Repository: provide all the data that the applicaiton needs and handle
+ * the API call and responseq decoding.
+ */
 export default class Repository {
 
     getMaxOrderQuantity() {
@@ -43,6 +47,13 @@ export default class Repository {
             })
     }
 
+    /**
+     * order: send an order request to the api, with the personal information of the
+     * customer and the list of the items he wants to purchase.
+     * @param {Contact} contact 
+     * @param {Array} products 
+     * @returns {string} orderId: the order id given back by the API.
+     */
     async order(contact, products) {
         let body = {
             contact,

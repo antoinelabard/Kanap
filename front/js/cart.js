@@ -13,6 +13,12 @@ let products = {}
 let totalQuantity = 0
 let totalPrice = 0
 
+/**
+ * addItemCardToDom: create a DOM element representing a cart item.
+ * It set all the information (image, quantity, color, etc) and add the element to the docuement tree.
+ * 
+ * @param {*} cartItem 
+ */
 function addItemCardToDom(cartItem) {
   let product = products[cartItem.id]
   let itemHTML = document.createElement("item")
@@ -59,6 +65,9 @@ function addItemCardToDom(cartItem) {
   itemsSectionHTML.appendChild(itemHTML)
 }
 
+/**
+ * updateTotals: update the display of the total quantity and price of the cart.
+ */
 function updateTotals() {
   cartItems = repository.getCart()
   totalQuantity = cartItems.reduce((acc, item) => {
@@ -71,6 +80,9 @@ function updateTotals() {
   totalPriceHTML.textContent = totalPrice
 }
 
+/**
+ * loadProductsData: load the product data for each item of the cart.
+ */
 async function loadProductsData() {
   for (let i in cartItems) {
     let cartItem = cartItems[i]
@@ -84,6 +96,12 @@ async function loadProductsData() {
   }
 }
 
+/**
+ * order: check the validity of the personal information field, then proceed to send a order
+ * to the API containing the list of the ids of each item in the cart.
+ * Only the ids of the items are transmitted to the API for this version of the website.
+ * At last, redirect to a confirmation page and fetch the order id retrieved by the API call.
+ */
 async function order() {
   let firstName = document.getElementById("firstName").value
   let firstNameErrorMsg = document.getElementById("firstNameErrorMsg")
