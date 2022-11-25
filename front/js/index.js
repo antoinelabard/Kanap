@@ -2,13 +2,12 @@ import Repository from "./Repository.js"
 
 const repository = new Repository()
 let items = document.getElementById('items')
-let productsHTML = "" // The string containing all the HTML element describing the products.
 
 repository.getAllProducts().then(function (products) {
     for (let i in products) {
         let product = products[i]
         console.log(product)
-        productsHTML = productsHTML + `
+        items.innerHTML += `
         <a href="./product.html?id=${product._id}">
             <article>
                 <img src="${product.imageUrl}" alt="${product.altTxt}">
@@ -17,5 +16,4 @@ repository.getAllProducts().then(function (products) {
             </article>
         </a>`
     }
-    items.innerHTML = productsHTML
 })
