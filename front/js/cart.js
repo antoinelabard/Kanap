@@ -118,31 +118,45 @@ async function order() {
   let addressRegex = new RegExp(/^[a-zA-Z ]{1,50}$/i)
   let emailRegex = new RegExp(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/i)
 
+  let isOrderValid = true
   console.log(cartItems.length)
   if (cartItems.length == 0) {
     alert("Le panier est vide.")
-    return
+    isOrderValid = false
   }
   if (!nameRegex.test(firstName)) {
     firstNameErrorMsg.textContent
-      = "Ce champ ne doit contenir qu'entre 1 et 20 lettres."
-    return
+      = "Ce champ ne doit contenir qu'entre 1 et 20 lettres. Pas de chiffre autorisé."
+    isOrderValid = false
+  } else {
+    firstNameErrorMsg.textContent = ""
   }
   if (!nameRegex.test(lastName)) {
     lastNameErrorMsg.textContent
-      = "Ce champ ne doit contenir qu'entre 1 et 20 lettres."
-    return
+      = "Ce champ ne doit contenir qu'entre 1 et 20 lettres. Pas de chiffre autorisé."
+    isOrderValid = false
+  } else {
+    lastNameErrorMsg.textContent = ""
   }
   if (!addressRegex.test(address)) {
     addressErrorMsg.textContent = "Ce champ ne doit contenir qu'entre 1 et 50 lettres ou chiffres."
-    return
+    isOrderValid = false
+  } else {
+    addressErrorMsg.textContent = ""
   }
   if (!addressRegex.test(city)) {
     cityErrorMsg.textContent = "Ce champ ne doit contenir qu'entre 1 et 50 lettres ou chiffres."
-    return
+    isOrderValid = false
+  } else {
+    cityErrorMsg.textContent = ""
   }
   if (!emailRegex.test(email)) {
     emailErrorMsg.textContent = "Ce champ ne doit être une adresse email valide (ex : nom@exemple.com)."
+    isOrderValid = false
+  } else {
+    emailErrorMsg.textContent = ""
+  }
+  if (!isOrderValid) {
     return
   }
 
