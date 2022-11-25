@@ -118,6 +118,11 @@ async function order() {
   let addressRegex = new RegExp(/^[a-zA-Z ]{1,50}$/i)
   let emailRegex = new RegExp(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/i)
 
+  console.log(cartItems.length)
+  if (cartItems.length == 0) {
+    alert("Le panier est vide.")
+    return
+  }
   if (!nameRegex.test(firstName)) {
     firstNameErrorMsg.textContent
       = "Ce champ ne doit contenir qu'entre 1 et 20 lettres."
