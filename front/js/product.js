@@ -4,6 +4,7 @@ const repository = new Repository()
 
 let imageHTML = document.getElementsByClassName("item__img")[0]
 let titleHTML = document.getElementById("title")
+let priceHTML = document.getElementById("price")
 let descriptionHTML = document.getElementById("description")
 let colorsHTML = document.getElementById("colors")
 let pageTitleHTML = document.getElementsByTagName("title")[0]
@@ -14,6 +15,7 @@ repository
         // add the cover image
         imageHTML.innerHTML = `<img src="${product.imageUrl}" alt="${product.altTxt}">`
         titleHTML.textContent = product.name
+        priceHTML.textContent = product.price
         descriptionHTML.textContent = product.description
         pageTitleHTML.textContent = product.name
 
