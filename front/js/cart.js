@@ -91,9 +91,9 @@ async function loadProductsData() {
       .then((product) => {
         products[product._id] = product
         addItemCardToDom(cartItem)
-        updateTotals()
       })
   }
+  updateTotals()
 }
 
 /**
@@ -151,7 +151,7 @@ async function order() {
     cityErrorMsg.textContent = ""
   }
   if (!emailRegex.test(email)) {
-    emailErrorMsg.textContent = "Ce champ ne doit être une adresse email valide (ex : nom@exemple.com)."
+    emailErrorMsg.textContent = "Ce champ doit être une adresse email valide (ex : nom@exemple.com)."
     isOrderValid = false
   } else {
     emailErrorMsg.textContent = ""
@@ -160,7 +160,7 @@ async function order() {
     return
   }
 
-  let orderId = await repository.order(
+  repository.order(
     new Contact(
       firstName,
       lastName,
@@ -171,13 +171,15 @@ async function order() {
     cartItems.map((item) => {
       return item.id
     })
-  )
-  window.location.href = `../html/confirmation.html?orderId=${orderId}`
+  ).then((orderId) => {
+    window.location.href = `../html/confirmation.html?orderId=${orderId}`
+  })
 }
 
 await loadProductsData()
 updateTotals()
 
 document.getElementById("order").addEventListener("click", (event) => {
+    event.preventDefault()
   order()
 })
